@@ -6,7 +6,7 @@ console.log("******** tableau tri insertion initial : ********* " + a);
 
 function insertionSort() {
     let tmp;
-    for(let i =1; i <= a.length; i++) {
+    for(let i =1; i < a.length; i++) {
         for(let k = i; k > 0; k--) {
             if (a[k] < a[k-1]) {
                 tmp = a[k];
@@ -31,11 +31,11 @@ function selectionSort() {
     let tmp;
     console.log("*******tableau tri sélection avant tri ******* " + b);
 
-    for(let i = 0; i <= b.length; i++) {
+    for(let i = 0; i < b.length; i++) {
         let k = i;
-        for(let j = i+1; j <= b.length; j++) {
+        for(let j = i+1; j < b.length; j++) {
 
-            if(b[j] <= b[k]) {
+            if(b[j] < b[k]) {
                 k=j;
                 if(b[k] < b[i]) {
                     tmp = b[k];

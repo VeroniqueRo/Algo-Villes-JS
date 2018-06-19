@@ -11,7 +11,7 @@ function distanceFromGrenoble(city)
   var cityLat = city.latitude;
   var cityLong = city.longitude;
 
-    var R = 6371e3; // metres
+    var R = 6371; // metres
     var φ1 = Math.toRadians(GrenobleLat);
     var φ2 = Math.toRadians(cityLat);
     var Δφ = Math.toRadians(cityLat-GrenobleLat);
@@ -29,24 +29,51 @@ function distanceFromGrenoble(city)
 
 function swap(i,j) // Swap the values in array csvData
 {
+
+  let temp = csvData[i];
+
+    csvData[i] = csvData[j];
+    csvData[j] = temp;
+
   displayBuffer.push(['swap', i, j]); // Do not delete this line (for display)
-  console.log("implement me !");
 
 }
 
 function isLess(A,B)
 {
-  displayBuffer.push(['compare', A, B]); // Do not delete this line (for display)
-}
+    let i = A.dist; // distance à Grenoble de la ville A
+    let j = B.dist; // distance à Grenoble de la ville B
 
+    if (i<j) {
+      displayBuffer.push(['compare', A, B]); // Do not delete this line (for display)
+      return true;
+    };
+}
 
 function insertsort()
 {
-  console.log("implement me !");
+    for(let i = 1; i < csvData.length; i++) {
+        for(let k = i; k > 0; k--) {
+            if (isLess(csvData[k], csvData[k-1])) {
+                swap(k,k-1);
+            }
+        }
+    }
 }
 function selectionsort()
 {
-  console.log("implement me !");
+    for(let i = 0; i < csvData.length; i++) {
+        let k = i;
+        for(let j = i+1; j < csvData.length; j++) {
+
+            if (isLess(csvData[j], csvData[k])) {
+                k = j;
+                if (isLess(csvData[k], csvData[i])) {
+                    swap(k,i);
+                }
+            }
+        }
+    }
 }
 function bubblesort()
 {
