@@ -94,8 +94,38 @@ function heapsort(data)
 
 function quicksort()
 {
-  console.log("implement me !");
+
+    sortForQuickSort(0,csvData.length-1);
 }
+
+function sortForQuickSort(iDeb,iFin) {
+
+    let k = iDeb;
+    let rand = random(iDeb,iFin);
+    swap(iDeb,rand);
+
+    for (i = iDeb+1; i <= iFin; i++) {
+
+        if (isLess(csvData[i], csvData[iDeb])) {
+            swap(++k,i);
+        }
+    }
+    swap(iDeb,k);
+
+    if (iDeb<k-1) {
+        sortForQuickSort(iDeb,k-1);
+    }
+
+    if (k+1<iFin) {
+        sortForQuickSort(k+1,iFin);
+    }
+}
+
+function random(min,max) {
+    rand = Math.floor(Math.random()*(max-min)+min)+1;
+    return rand;
+}
+
 function quick3sort(data)
 {
   console.log("implement me !");
