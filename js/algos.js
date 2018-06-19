@@ -75,10 +75,22 @@ function selectionsort()
         }
     }
 }
+
 function bubblesort()
 {
-  console.log("implement me !");
+    for(let i = 0; i < csvData.length; i++) {
+        let swapped = false;
+        for(let j = csvData.length-1; j >= i+1 ; j--) {
+
+            if (isLess(csvData[j], csvData[j-1])) {
+                swap(j,j-1);
+                swapped = true;
+            }
+
+        } if (swapped == false) {return};
+    }
 }
+
 function shellsort()
 {
   console.log("implement me !");
