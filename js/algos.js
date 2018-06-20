@@ -44,7 +44,7 @@ function isLess(A,B)
 
     displayBuffer.push(['compare', A, B]); // Do not delete this line (for display)
 
-    if (A.dist < B.dist) {
+    if (csvData[A].dist < csvData[B].dist) {
       return true;
     };
 
@@ -56,7 +56,7 @@ function insertsort()
 {
     for(let i = 1; i < csvData.length; i++) {
         for(let k = i; k > 0; k--) {
-            if (isLess(csvData[k], csvData[k-1])) {
+            if (isLess(k, k-1)) {
                 swap(k,k-1);
             } else {
                 break; // Arrete la boucle k quand la permutation n'est plus possible (Optimisation)
@@ -70,7 +70,7 @@ function selectionsort()
     for(let i = 0; i < csvData.length; i++) {
         let k = i; // On suppose que c'est l'élément le plus petit
         for(let j = i+1; j < csvData.length; j++) {
-            if (isLess(csvData[j], csvData[k])) {
+            if (isLess(j, k)) {
                 k = j; // L'élément le plus petit a changé
             }
         } swap(k,i);
@@ -83,7 +83,7 @@ function bubblesort()
         let swapped = false;
         for(let j = csvData.length-1; j >= i+1 ; j--) {
 
-            if (isLess(csvData[j], csvData[j-1])) {
+            if (isLess(j, j-1)) {
                 swap(j,j-1);
                 swapped = true;
             }
@@ -118,7 +118,7 @@ function sortForQuickSort(iDeb,iFin) {
 
     for (i = iDeb+1; i <= iFin; i++) {
 
-        if (isLess(csvData[i], csvData[iDeb])) {
+        if (isLess(i, iDeb)) {
             swap(++k,i); // ATTENTION : i est swappé avec k+1 !
         }
     }
