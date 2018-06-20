@@ -6,7 +6,7 @@ console.log("******** tableau tri insertion initial : ********* " + a);
 
 function insertionSort() {
     let tmp;
-    for(let i =1; i <= a.length; i++) {
+    for(let i =1; i < a.length; i++) {
         for(let k = i; k > 0; k--) {
             if (a[k] < a[k-1]) {
                 tmp = a[k];
@@ -31,9 +31,9 @@ function selectionSort() {
     let tmp;
     console.log("*******tableau tri sélection avant tri ******* " + b);
 
-    for(let i = 0; i <= b.length; i++) {
+    for(let i = 0; i < b.length; i++) {
         let k = i;
-        for(let j = i+1; j <= b.length; j++) {
+        for(let j = i+1; j < b.length; j++) {
 
             if(b[j] <= b[k]) {
                 k=j;
@@ -91,23 +91,22 @@ console.log("*******tableau tri à bulle avant tri ******* " + tabBulle);
 bubblesort();
 
 function bubblesort() {
-    // let passage = 0;
+    let passage = 0;
 
-        for(let i = 0; i < tabBulle.length; i++) {
-            let swapped = false;
+    for(let i = 0; i < tabBulle.length; i++) {
+        let swapped = false;
 
-            for(let j = tabBulle.length-1; j >= i+1 ; j--) {
-                if (tabBulle[j]<tabBulle[j-1]) {
-                    swapBulle(j,j-1);
-                    swapped = true;
-
-                }
-                // passage++;
-                console.log("tableau après une boucle :" + tabBulle);
-            } if (swapped == false) {return};
-
-        }
-
+        for(let j = tabBulle.length-1; j >= i+1 ; j--) {
+            if (tabBulle[j]<tabBulle[j-1]) {
+                swapBulle(j,j-1);
+                swapped = true;
+            }
+            passage++;
+            console.log("tableau après une boucle :" + tabBulle);
+            // console.log("nombre de passages : " + passage);
+        }  console.log("nombre de passages : " + passage);
+        if (swapped == false) {return};
+    }
 }
 
 function swapBulle (a,b) {

@@ -12,14 +12,14 @@ function distanceFromGrenoble(city)
   var cityLong = city.longitude;
 
     var R = 6371; // metres
-    var φ1 = Math.toRadians(GrenobleLat);
-    var φ2 = Math.toRadians(cityLat);
-    var Δφ = Math.toRadians(cityLat-GrenobleLat);
-    var Δλ = Math.toRadians(cityLong-GrenobleLong);
+    var radianLatitudeGrenoble = Math.toRadians(GrenobleLat);
+    var radianLatitudeVille = Math.toRadians(cityLat);
+    var differenceEntreLatitudes = Math.toRadians(cityLat-GrenobleLat);
+    var differenceEntreLongitudes = Math.toRadians(cityLong-GrenobleLong);
 
-    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-        Math.cos(φ1) * Math.cos(φ2) *
-        Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var a = Math.sin(differenceEntreLatitudes/2) * Math.sin(differenceEntreLatitudes/2) +
+        Math.cos(radianLatitudeGrenoble) * Math.cos(radianLatitudeVille) *
+        Math.sin(differenceEntreLongitudes/2) * Math.sin(differenceEntreLongitudes/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
     var d = R * c;
@@ -41,13 +41,15 @@ function swap(i,j) // Swap the values in array csvData
 
 function isLess(A,B)
 {
-    let i = A.dist; // distance à Grenoble de la ville A
-    let j = B.dist; // distance à Grenoble de la ville B
 
-    if (i<j) {
-      displayBuffer.push(['compare', A, B]); // Do not delete this line (for display)
+    displayBuffer.push(['compare', A, B]); // Do not delete this line (for display)
+
+    if (A.dist < B.dist) {
       return true;
     };
+
+
+
 }
 
 function insertsort()
@@ -56,23 +58,22 @@ function insertsort()
         for(let k = i; k > 0; k--) {
             if (isLess(csvData[k], csvData[k-1])) {
                 swap(k,k-1);
+            } else {
+                break; // Arrete la boucle k quand la permutation n'est plus possible (Optimisation)
             }
         }
     }
 }
+
 function selectionsort()
 {
     for(let i = 0; i < csvData.length; i++) {
-        let k = i;
+        let k = i; // On suppose que c'est l'élément le plus petit
         for(let j = i+1; j < csvData.length; j++) {
-
             if (isLess(csvData[j], csvData[k])) {
-                k = j;
-                if (isLess(csvData[k], csvData[i])) {
-                    swap(k,i);
-                }
+                k = j; // L'élément le plus petit a changé
             }
-        }
+        } swap(k,i);
     }
 }
 
@@ -87,7 +88,7 @@ function bubblesort()
                 swapped = true;
             }
 
-        } if (swapped == false) {return};
+        } if (swapped === false) {return};
     }
 }
 
@@ -106,7 +107,6 @@ function heapsort(data)
 
 function quicksort()
 {
-
     sortForQuickSort(0,csvData.length-1);
 }
 
@@ -119,11 +119,11 @@ function sortForQuickSort(iDeb,iFin) {
     for (i = iDeb+1; i <= iFin; i++) {
 
         if (isLess(csvData[i], csvData[iDeb])) {
-            swap(++k,i);
+            swap(++k,i); // ATTENTION : i est swappé avec k+1 !
         }
     }
     swap(iDeb,k);
-
+    // Séparation des tableaux autour du pivot
     if (iDeb<k-1) {
         sortForQuickSort(iDeb,k-1);
     }
